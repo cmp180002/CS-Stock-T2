@@ -1,0 +1,9 @@
+<div id="chatbox-container">
+    <div id="chatbox-header"></div>
+    <div id="chatbox-body"></div>
+    <div id="chatbox-input">
+        <input placeholder="Type your question here" id="chatbox-input-type" #textinput
+        (keyup)="update(textinput.value)">
+        <button id="chatbox-input-submit" [class.isEmpty]="value.length == 0">➤</button>
+    </div>
+</div>
