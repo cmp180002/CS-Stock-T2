@@ -7,8 +7,8 @@
         </div>
     </div>
     <div id="chatbox-body">
-        <div id="chatbox-body-messageholder">
-            <div class="chatbox-message" [class.sent-user]="message.sentUser" *ngFor="let message of messages">{{message.content}}</div>
+        <div id="chatbox-body-messageholder" >
+            <div class="chatbox-message" [class.sent-user]="message.sentUser" *ngFor="let message of messages" [@slideInOut]>{{message.content}}</div>
         </div>
     </div>
     <div id="chatbox-input">
