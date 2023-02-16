@@ -1,5 +1,2 @@
-
-<app-infobox id="infobox-holder"></app-infobox>
-<app-chatbox id="chatbox-holder"></app-chatbox>
-
-<router-outlet></router-outlet>
+<app-desktop-site *ngIf="!isMobile()" (window:resize)="0"></app-desktop-site>
+<app-mobile-site *ngIf="isMobile()" (window:resize)="0"></app-mobile-site>

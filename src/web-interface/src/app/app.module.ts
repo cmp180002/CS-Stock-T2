@@ -6,12 +6,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InfoboxComponent } from './infobox/infobox.component';
 import { ChatboxComponent } from './chatbox/chatbox.component';
+import { MobileSiteComponent } from './mobile-site/mobile-site.component';
+import { DesktopSiteComponent } from './desktop-site/desktop-site.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     InfoboxComponent,
-    ChatboxComponent
+    ChatboxComponent,
+    MobileSiteComponent,
+    DesktopSiteComponent
   ],
   imports: [
     BrowserModule,
