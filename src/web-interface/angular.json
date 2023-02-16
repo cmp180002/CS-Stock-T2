@@ -18,7 +18,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "../../docs",
-            "baseHref": "CS-Stock-T2/",
+            "baseHref": "/CS-Stock-T2/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
