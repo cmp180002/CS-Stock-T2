@@ -6,10 +6,14 @@
             <br><span id="chatbox-header-subtitle">Stalk Market Expert</span>
         </div>
     </div>
-    <div id="chatbox-body"></div>
+    <div id="chatbox-body">
+        <div id="chatbox-body-messageholder">
+            <div class="chatbox-message" [class.sent-user]="message.sentUser" *ngFor="let message of messages">{{message.content}}</div>
+        </div>
+    </div>
     <div id="chatbox-input">
         <input placeholder="Type your question here..." id="chatbox-input-type" #textinput
-        (keyup)="update(textinput.value)">
-        <button id="chatbox-input-submit" [class.isEmpty]="value.length == 0">➤</button>
+        (keyup)="update(textinput.value)" (keyup.enter)="submit(textinput);">
+        <button id="chatbox-input-submit" [class.isEmpty]="value.length == 0" (click)="submit(textinput);">➤</button>
     </div>
 </div>
