@@ -1,0 +1,12 @@
+This directory contains fine-tuning data for the ML model.
+
+
+All fine-tuning data follows the .jsonl format.
+    {"prompt": "<prompt text>", "completion": "<ideal generated text>"}
+        - Each data sample is comprised of a prompt and the ideal text response
+        - The prompt + completion should not excede 2048 tokens (including the separator)
+
+
+Relevant Links:
+    OpenAI Fine-tuning Guide
+    https://platform.openai.com/docs/guides/fine-tuning
