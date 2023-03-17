@@ -1,0 +1,12 @@
+## Sample Data Examples for Creating Fine-tuning Data ##
+
+{"prompt": "<prompt text>", "completion": "<ideal generated text>"}
+
+# Here's a really ideal example. On March 17th, the FedEx stock jumped 7-8% after the company reported
+# earnings well above Wall Street estimates. (https://www.barrons.com/articles/fedex-earnings-stock-what-to-expect-746f7e09)
+# The prompt exchange might look something like this:
+{"prompt": "How is the FedEx stock performing today?\n\n###\n\n", "completion": "FedEx FDX stock jumped Thursday after the company's quarterly earnings soundly beat Wall Street estimates. Cost savings are taking hold. For its fiscal third quarter, FedEx (ticker: FDX) reported earnings of $3.41 a share from $22.2 billion in sales. Wall Street had been looking for per-share earnings of $2.71 from sales of $22.7 billion. END"}
+# I took the response straight from the financial news site, which is how data is going to be scraped. 
+# Note the appended separator (\n\n###\n\n) and ending token ( END). In this case, the prompt and completion are only 99 tokens.
+
+
