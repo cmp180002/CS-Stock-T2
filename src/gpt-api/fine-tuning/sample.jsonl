@@ -1,0 +1,24 @@
+## Sample Data Examples for Creating Fine-tuning Data ##
+
+{"prompt": "<prompt text>", "completion": "<ideal generated text>"}
+
+# Here's a really ideal example. On March 17th, the FedEx stock jumped 7-8% after the company reported
+# earnings well above Wall Street estimates. (https://www.barrons.com/articles/fedex-earnings-stock-what-to-expect-746f7e09)
+# The prompt exchange might look something like this:
+{"prompt": "How is the FedEx stock performing today?\n\n###\n\n", "completion": "FedEx FDX stock jumped Thursday after the company's quarterly earnings soundly beat Wall Street estimates. Cost savings are taking hold. For its fiscal third quarter, FedEx (ticker: FDX) reported earnings of $3.41 a share from $22.2 billion in sales. Wall Street had been looking for per-share earnings of $2.71 from sales of $22.7 billion. END"}
+# I took the response straight from the financial news site, which is how data is going to be scraped. 
+# Note the appended separator (\n\n###\n\n) and ending token ( END). In this case, the prompt and completion are only 99 tokens.
+
+
+# Here's another, less ideal case. If someone were to ask the chatbot about general stock market performance, it would 
+# be really difficult to provide an accurate answer. March 17th is maybe an exception (https://finance.yahoo.com/news/stock-market-news-today-march-17-2023-123151709.html)
+{"prompt": "How is the general stock market doing today?\n\n###\n\n", "completion": "On Friday, stocks fell across the board, with financial stocks at the center of selling pressure the day after a consortium of 11 big U.S. banks banded together to deposit $30 billion into First Republic (FRC) in a bid to stabilize the banking system. When the closing bell rang Friday, the S&P 500 was off 1.1%, the Dow down 1.2%, and the Nasdaq lower by 0.7%. The small cap Russell 2000 took the day's biggest losses, falling more than 2.5% as the index's weight toward regional banks — which stands at about 16% — put the index under heavier pressure than its larger peers. END"}
+
+
+# Another example. This maybe shows the complexity of getting an accurate response. The biggest stock news today has involved
+# First Republic Bank, which has seen a monumental decline in value following bank turmoil over the last week and following
+# a cash deposit infusion from other major banks. How exactly can we explain investor behavior then? There are many different
+# potential answers (https://markets.businessinsider.com/news/stocks/first-republic-stock-bank-crisis-svb-wall-street-rescue-2023-3?op=1)
+{"prompt": "Why has the First Republic Bank stock been suffering today?\n\n###\n\n", "completion": "Shares in embattled First Republic Bank fell over 25% Friday despite a $30 billion lifeline from 11 of America's biggest banks. The banks, led by JPMorgan, Bank of America, Citigroup, and Wells Fargo, said Thursday they would deposit a collective $30 billion into First Republic. The San Francisco-based lender's stock rose to close 10% higher Thursday after the news. Fears eased that it would suffer a bank run, where customers rush to pull their deposits, given the fresh injection of cash. But shares of First Republic swung lower in Friday, sinking 26% to $25.26 at last check. The slide came after the bank said it would suspend its dividend and it would concentrate on cutting down on borrowings. END"}
+# (https://nypost.com/2023/03/17/first-republic-execs-dumped-12m-in-stock-before-bank-chaos-report/)
+{"prompt": "Why has the First Republic Bank stock been suffering today?\n\n###\n\n", "completion": "Top executives at embattled lender First Republic Bank reaped a combined haul of nearly $12 million by dumping stock just before chaos unfolded in the banking sector - including sales that occurred as recently as this month. The stock sales are drawing scrutiny as the nation's largest banks threw a whopping $30 billion lifeline to prevent First Republic's collapse following a mass exodus of depositors this week. As of Friday, the bank's stock has plunged nearly 80% since February. END"}
