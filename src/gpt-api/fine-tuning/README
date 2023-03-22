@@ -10,3 +10,26 @@ All fine-tuning data follows the .jsonl format.
 Relevant Links:
     OpenAI Fine-tuning Guide
     https://platform.openai.com/docs/guides/fine-tuning
+
+
+NOTES
+    Temporal Reasoning
+        > The concept of time is extremely important for this project. The model has to have some concept of when the data it
+          is given is from for it to give accurate responses. Importantly, it ALSO needs to know when the user is asking a prompt
+          to give accurate responses. As is, ChatGPT (and likely the OpenAI model we run with) does not have access to the date.
+            - On the training end, this is relatively simple to tackle. You need to include the date of the response in the
+              fine-tuning example, in the prompt field.
+            - For the front-end, this is a little more complex but still managable. It involves appending the current date/time
+              to each user prompt. It's unreasonable to ask the user to give the current date in each prompt, and just appending
+              it in the backend before 'asking' is much easier.
+    
+    Number of Examples
+        > A lot. The numbers I'm frequently seeing recommended are in the 500-1000 range. Most of them will be human-made, at least 
+          in the initial fine-tuning stage, but the reality is that we'll probably have to use some web-scraping data for the initial fine-tuning as well given the scale.
+
+    Weird Fine-tuning Data Recommendations
+        > OpenAI's own CLI Preparation tool has a few weird recommendations for fine-tuning data:
+            - Include a special end token in the prompt: "\n\n###\n\n"
+            
+            - Include a space at the beginning of the response
+            - Include a defined special end token in the response: " END"
