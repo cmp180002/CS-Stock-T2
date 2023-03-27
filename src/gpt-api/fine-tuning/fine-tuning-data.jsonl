@@ -173,56 +173,28 @@
 {"prompt": "Why did Nikola's share price drop on February 23rd, 2023?\n\n###\n\n", "completion": " Shares fell about 5.6% after Nikola reported quarterly revenue that disappointed analyst expectations. The electric truck maker said it delivered just 20 battery-electric trucks to dealers despite producing 133 trucks in the fourth quarter."}
 {"prompt": "Today is February 23rd, 2023. Why did eBay's stock price drop?\n\n###\n\n", "completion": " Shares dropped 5.2% even after eBay reported fourth-quarter earnings that missed expectations. The online seller of goods posted a profit of 77 cents per share, below the Refinitiv estimate of 81 cents per share."}
 {"prompt": "What, if anything, happened to the stock price of Moderna today? It's February 23rd, 2023.\n\n###\n\n", "completion": " The pharmaceutical stock fell 6.7% after Moderna reported weaker-than-expected earnings for the fourth quarter, citing rising costs from surplus production capacity and lower demand for its Covid-19 vaccine."}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
+{"prompt": "Today is March 10th, 2023. Update me on the situation with SVB shares.\n\n###\n\n", "completion": "Shares of the company known as Silicon Valley Bank extended their big slide, falling more than 40% in early morning trading after the company Thursday announced a plan to raise more than $2 billion in capital to help offset losses on bond sales. The news weighed on the entire banking sector for a second day, with First Republic Bank losing 7.5% in the premarket and crypto focused Signature Bank down 4%. Zions Bancorporation fell 2%. In the previous session, SVB finished down 60%."}
+{"prompt": "Today is March 10th, 2023. Tell me about Allbirds stocks.\n\n###\n\n", "completion": "Shares of the footwear retailer plummeted more than 22% after the company failed to post year-over-year quarterly sales growth for the first time in its history. Allbirds also unveiled a broad transformation strategy and an executive shake-up."}
+{"prompt": "Today is March 10th, 2023. Should I invest in DocuSign shares? \n\n###\n\n", "completion": "The electronic signature platform dropped nearly 14% despite an earnings and revenue beat. However, DocuSign announced CFO Cynthia Gaylor would step down later this year. The stock was also downgraded by JPMorgan to underweight from neutral. The firm cited deteriorating demand trends, potential competition from Microsoft and Gaylor’s departure."}
+{"prompt": "Today is March 10th, 2023. How are Oracle stocks holding up?\n\n###\n\n", "completion": "The software company dropped 4.9% after revenue for its latest quarter missed analysts’ expectations. Oracle posted $12.4 billion, compared with Wall Street’s estimates of $12.42 billion, according to Refinitiv."}
+{"prompt": "Today is March 10th, 2023. Where, if anywhere, do Gap stocks lie?\n\n###\n\n", "completion": "The apparel retailer saw its shares drop more than 7% after it announced a big quarterly loss, declining sales and a series of executive changes. It also issued weaker-than-expected guidance for its first quarter and full-year revenue, according to Refinitiv."}
+{"prompt": "Today is March 10th, 2023. What's up with Vali Resorts shares?\n\n###\n\n", "completion": "The stock lost 2% following a mixed financial report for its second fiscal quarter and weak guidance that included earnings that fell short of analysts’ estimates. The company’s guidance on net income and adjusted EBITDA for the year leading up to July also came in under analysts’ expectations."}
+{"prompt": "Today is March 10th, 2023. How are Roblox shares?\n\n###\n\n", "completion": "Shares climbed 2.9% after Jefferies upgraded Roblox to buy from hold. The Wall Street firm said it’s confident the online gaming platform will continue to show strong growth in spite of macro pressures."}
+{"prompt": "Today is March 10th, 2023. Should I invest in Allbirds stock?\n\n###\n\n", "completion": "Shares slid by 40% after the footwear retailer’s fourth-quarter results missed Wall Street’s expectations. Additionally, the company posted its first year-over-year sales decline. Allbirds also announced a new business strategy and an executive shake-up. Baird earlier downgraded the company after its disappointing earnings report."}
+{"prompt": "Today is March 10th, 2023. Should one invest in Oracle stock?\n\n###\n\n", "completion": "The information technology stock dropped 3.2% following a mixed third quarter earnings report. Oracle posted adjusted earnings of $1.22 per share, more than the $1.20 per share expected by analysts polled by Refinitiv. But revenue came in lower than expected, with the company recording $12.40 billion against the $12.42 billion predicted by analysts."}
+{"prompt": "Today is March 10th, 2023. Why did Charles Schwab drop?\n\n###\n\n", "completion": "Charles Schwab dropped 7.4% on Friday, fueled by a broader investor selloff in financial companies with perceived weaker deposit bases."}
+{"prompt": "Today is March 10th, 2023. Where did Docusign stocks go?\n\n###\n\n", "completion": "Shares of the electronic signature platform fell 19% even after the company’s fourth-quarter results beat expectations. However, after DocuSign announced CFO Cynthia Gaylor would step down later this year. The stock was also downgraded to underweight from neutral by JPMorgan, which lowered its price target citing deteriorating demand trends, potential competition from Microsoft and Gaylor’s departure. "}
+{"prompt": "Today is March 10th, 2023. Where are Signature Bank stocks headed?\n\n###\n\n", "completion": "Shares of Signature, one of the main banks to the cryptocurrency industry, fell 23% amid a selloff in bank stocks led by Silicon Valley Bank, now in its second day. Earlier in the day the bank’s shares fell as much as 32% and were briefly halted for volatility."}
+{"prompt": "Today is March 10th, 2023. Where are the Regional bank shares going?\n\n###\n\n", "completion": "Shares of the regional banks posted major losses during Friday’s trading session amid the larger market selloff sparked by Silicon Valley Bank. PacWest dropped more than 30%, Western Alliance lost more than 45%, and First Republic slid by 19%. "}
+{"prompt": "Today is March 10th, 2023. Why did Caterpillar shares drop?\n\n###\n\n", "completion": "Caterpillar’s shares dipped by 3% after UBS downgraded the industrial giant to sell from neutral, saying the company is overvalued."}
+{"prompt": "Today is March 10th, 2023. What happened to Gap stocks?\n\n###\n\n", "completion": "The apparel retailer dropped more than 6% after it posted a big quarterly loss, declining sales and a series of executive changes as it searches for a permanent CEO. Gap also reported weaker-than-expected guidance for its first quarter and full-year revenue, according to Refinitiv."}
+{"prompt": "Today is February 7th, 2023. What happened to my precious Chipotle stocks?\n\n###\n\n", "completion": "Shares fell more than 4% in extended trading after Chipotle Mexican Grill missed analysts’ expectations on the top and bottom lines. The burrito chain reported earnings of $8.29 per share on revenue of $2.18 billion. Analysts polled by Refinitiv were anticipating earnings of $8.90 per share on revenue of $2.23 billion."}
+{"prompt": "Today is February 7th, 2023. What's the deal with Enphase Energy shares?\n\n###\n\n", "completion": "The solar stock jumped more than 8% after Enphase Energy reported quarterly results that topped analysts’ expectations for earnings per share and revenue, according to FactSet."}
+{"prompt": "Today is February 7th, 2023. Why did Lumen Technologies stocks plunge?\n\n###\n\n", "completion": "Shares plunged more than 14% after Lumen Technologies reported its latest results. The company offered 2023 guidance on adjusted earnings before interest, taxes, depreciation, and amortization that was lower than analysts’ expected, according to FactSet The telecommunications company topped per-share earnings and sales expectations, according to consensus estimates from Refinitiv."}
+{"prompt": "Today is February 7th, 2023. Since when did Fortinet stocks raise?\n\n###\n\n", "completion": "Shares surged more than 14% in extended trading after Fortinet surpassed earnings per share expectations, according to StreetAccount. The cybersecurity company posted 44 cents per share, greater than the expected 39 cents per share. However, the cybersecurity company slightly missed revenue estimates, posting $1.28 billion, lower than the predicted $1.3 billion."}
+{"prompt": "Today is February 7th, 2023. Why did V.F. stocks climb?\n\n###\n\n", "completion": "Shares climbed more than 5% after apparel maker V.F. Corporation beat forecasts on the top and bottom lines in its latest quarter, according to StreetAccount."}
+{"prompt": "Today is February 7th, 2023. Which direction did Yum China Holdings stocks go?\n\n###\n\n", "completion": "Shares dipped just under 1% after the fast-food company based in Shanghai reported a miss on the top and bottom lines in its most recent quarter, according to StreetAccount. Yum China reported earnings of 13 cents per share, lower than expectations for 15 cents per share. It posted revenue of $2.09 billion, less than the forecasted $2.26 billion. It also raised its dividend by one cent."}
+{"prompt": "Today is February 7th, 2023. Why did Pintrest stocks tumble?\n\n###\n\n", "completion": "Pinterest shares tumbled 5.2% on Tuesday after the image discovery company posted mixed quarterly results. While its adjusted earnings per share of 29 cents was greater than Refintiv analysts’ estimate of 27 cents per share, its posted revenue of $877 million fell below the $886 million estimate. Companies that rely on ad revenue have struggled with demand amid a macro downturn."}
+{"prompt": "Today is February 7th, 2023. Any news on Oak Street Health shares?\n\n###\n\n", "completion": "Shares surged 29.7% after the Wall Street Journal reported CVS Health was close to an agreement to buy the primary-care provider for $10.5 billion."}
+{"prompt": "Today is February 7th, 2023. What's up with Sweetgreen shares?\n\n###\n\n", "completion": "Shares fell about 1.3% on Tuesday, recouping earlier losses, after Cowen downgraded the salad chain’s stock to market perform from outperform, citing “deteriorating value perceptions.”"}
+{"prompt": "Today is February 7th, 2023. How are Chegg stocks?\n\n###\n\n", "completion": "Chegg’s shares dropped 17.1% after sharing revenue guidance for the full year and first quarter that fell short of analyst expectations. The company also said it’s facing subscriber growth challenges."}
