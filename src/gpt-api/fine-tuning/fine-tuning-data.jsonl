@@ -406,33 +406,19 @@
 {"prompt": "Why did DraftKings share price drop today? It's October 9th, 2020.\n\n###\n\n", "completion": " Shares of the gaming stock fell 3.8% as concerns about the NFL’s ability to play a full season continued to grow. ESPN reported that the New York Jets had a positive test for Covid-19 and sent their players home on Friday. The Jets are scheduled to play the Arizona Cardinals this weekend."}
 {"prompt": "Today is October 20th, 2020. How is the share price of IBM doing today?\n\n###\n\n", "completion": " Shares shed more than 6% after IBM’s third-quarter results showed a third straight quarter of declining revenue. The company earned an adjusted $2.58 per share for the quarter, which was in line with Street forecasts, while revenue was slightly above consensus estimates. IBM did not issue current-quarter guidance due to ongoing uncertainty surrounding Covid-19."}
 {"prompt": "It's October 20th, 2020. Why is AMC losing so much stock value today? \n\n###\n\n", "completion": " Shares of the movie theater chain sank 12.7% after the company warned of a possible bankruptcy in a security filing related to a secondary stock offering. The company said it could burn through its existing cash by the end of 2020 or early 2021 without additional liquidity."}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
-{"prompt": "\n\n###\n\n", "completion": ""}
+{"prompt": "Has anything happened to Travelers' stock price today? It's October 20th, 2020.\n\n###\n\n", "completion": " The insurance stock gained 5.6% after it reported better-than-expected results for its third quarter. Travelers reported $3.12 in adjusted earnings per share on $8.28 billion of revenue. Analysts surveyed by FactSet were looking for $3.03 per share and $7.59 billion. The company reported growth in its underwriting business and its investment income."}
+{"prompt": "Did anything happen to the stock price of Logitech on October 20th, 2020?\n\n###\n\n", "completion": " Shares of the accessory maker surged 15.8% after beating on the top and bottom lines of its third-quarter earnings. Logitech earned $1.87 per share on revenue of $1.26 billion. Wall Street expected 57 cents per share on revenue of $841 million, according to Refinitiv."}
+{"prompt": "Today is October 20th, 2020. What, if anything, has changed in the price of Procter and Gamble today?\n\n###\n\n", "completion": " Shares rose 0.4% after the consumer giant reported better-than-expected quarterly results. The company said its earnings per share came in at $1.63 in its fiscal first quarter, versus $1.42 expected per Refinitiv. Its revenue rose 9% as the pandemic fueled higher demand for its household products. P&G also raised its sales outlook for fiscal 2021."}
+{"prompt": "Today is October 20th, 2020. Why did Regions Financial's stock jump up today?\n\n###\n\n", "completion": " The stock popped 4.9% after reporting better-than-expected quarterly results. Regions Financial earned 52 cents per share on revenue of $1.64 billion, compared to the 33 cents per share on revenue of $1.49 billion forecast on Wall Street."}
+{"prompt": "I noticed Synchrony Financial lost share price today. Why is that? It's October 20th, 2020.\n\n###\n\n", "completion": " Shares fell 5.1% after reporting disappointing sales for the third quarter. The company made $3.46 billion in revenue, missing estimates of $3.49 billion, according to Refinitiv. Earnings came in in line with estimates at 72 cents per share."}
+{"prompt": "Why did Comerica's shares gain value on October 20th, 2020?\n\n###\n\n", "completion": " The bank’s stock rallied 4.9% after reporting earnings that topped analyst expectations. Comerica earned $1.44 per share, above the 83 cents expected on Wall Street. Revenue came in at $710 million, higher than the forecast $696 million."}
+{"prompt": "Today, UBS' shares increased in value significantly. Why is that? Today is October 20th, 2020, for context.\n\n###\n\n", "completion": " Shares of the bank rose 5.3% after reporting its quarterly profit doubled, driven by strong investment banking and a boost in profit from its wealth management division. UBS also set aside $2.5 billion for potential dividends and stock buybacks."}
+{"prompt": "Why did Revlon's stock price drop today? It's October 20th, 2020.\n\n###\n\n", "completion": " The stock price dropped 3.6% after its warning to bondholders that they might not get paid if the company’s distressed-bond exchange fails. The embattled cosmetics retailer said that without 95% participation from bondholders, most of the company’s debt will accelerate and become payable next month, in which case the bonds could be worth next to nothing."}
+{"prompt": "Today is April 25th, 2022. I noticed Twitter's stock price jumped up. Why is that?\n\n###\n\n", "completion": " Shares of the social media rose 5.7% on news that Twitter would accept a buyout from Elon Musk to take the company private for $54.20 per share."}
+{"prompt": "Why did Penn National Gaming shares increase in value today? It's April 25th, 2022.\n\n###\n\n", "completion": " Shares of the casino and online betting company rose 4.9% after an upgrade from Morgan Stanley. The investment firm hiked its rating to overweight, saying that the recent slump for Penn National’s stock made it an attractive valuation and that the company has a better strategy for gaining sports-betting customers than its competitors."}
+{"prompt": "Why and by how much did Verizon's stock price drop today? It's April 25th, 2022.\n\n###\n\n", "completion": " The stock fell nearly 3.1% after Goldman Sachs downgraded Verizon to neutral from buy on valuation, following a big subscriber loss for the telecom giant. Goldman said Verizon is positioned to remain a wireless leader in the 5G cycle but also anticipates a slowdown in revenue growth."}
+{"prompt": "I've never heard of Snowlfake, but their shares made a huge jump in price today, on April 25th, 2022. Why is that?\n\n###\n\n", "completion": " Shares surged 7.6% after Wolfe Research initiated coverage of the cloud data company with an outperform rating. The stock, which is trading at “Black Friday prices,” could get a boost at its upcoming analyst day, the analyst said. Wolfe expects new product reveals, as well as updated guidance on how Snow will reach $10 billion in annual product revenues by the 2029 fiscal year."}
+{"prompt": "I saw that ThredUp's shares dropped today. Why is that? It's April 25th, 2022.\n\n###\n\n", "completion": " Shares of the resale stock dipped 2.3% following a downgrade from a buy to neutral rating by Goldman Sachs, which cited near-term headwinds."}
+{"prompt": "Activision Blizzard's stock dipped today. Why is that? It's April 25th, 2022.\n\n###\n\n", "completion": " The videogame publisher’s stock moved 0.7% lower after missing analyst estimates in the first quarter. Activision Blizzard cited disappointing demand for its “Call of Duty: Warzone” among the contributors to the weak earnings."}
+{"prompt": "How are Deere's stocks doing today, on April 25th, 2022?\n\n###\n\n", "completion": " Shares tumbled 4.5% after Bank of America downgraded the stock to neutral from buy. Analysts said they see limited upside for the agricultural machinery stock, which could get hit by rising fertilizer prices amid the ongoing conflict in Ukraine."}
+{"prompt": "How did GoDaddy's stock price perform on April 25th, 2022?\n\n###\n\n", "completion": " The stock ticked 4.5% higher after Piper Sandler upgraded the company to overweight from neutral, calling it a top defensive idea. The firm also said the website domain company has strong free cash flow potential, and it likes GoDaddy’s $3B capital return strategy for the next three years."}
