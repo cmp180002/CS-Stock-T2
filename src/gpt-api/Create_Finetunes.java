@@ -39,10 +39,17 @@ public class Create_Finetunes {
   private static final String[] PROMPT_TEMPLATES = {"Today is #. How did *'s stock price change today? ->",
                                                     "What happened to the share price of * today? It's #. ->",
                                                     "I noticed that *'s share price % today, on #. Why is that? ->",
-                                                    "Should I invest in *? Today is #. ->",
                                                     "What's the story with *'s shares? Today is #. ->",
                                                     "Why did *'s stock price $ today? It's #. ->",
                                                     "By how much did *'s stock price $ on #? ->"};
+
+  // Constant Completion Templates
+  //   Key: * (Company Name), % (percentage change), @ (increased, decreased), # (up, down), & (jumped up, fell down), ^ (+, -)
+  private static final String[] COMPLETION_TEMPLATES = {"*'s share price @ by % today.",                        // increased, decreased
+                                                        "* closed the day at % #.",                             // up, down
+                                                        "* stocks' & today, ending at % #.",                    // jumped up, fell down
+                                                        "By the end of the day, *'s stock price was # by %.",   // up, down 
+                                                        "* saw a change of ^% in terms of stock price today."}; // +, -      
 
   // Go through scraped_stocks.txt --
   //   delimiter between company names is url; they all start with http so go through file line-by-line until you identify that sequence of characters
@@ -98,9 +105,9 @@ public class Create_Finetunes {
 
     // Begin Combing through Stocks & News
     System.out.println("Combing through scraped data...");
-    String stock_movement;
     String prompt, completion, finetune_line;
     String company_name = GetNextCompanyName(stocks_in);
+    String stock_movement;
     while (stocks_in.hasNextLine()) {
       stock_movement = stocks_in.nextLine();                                // You have to get the next line before creating the prompt; need to know if stock increases or decreases
 
@@ -108,9 +115,11 @@ public class Create_Finetunes {
       if (stock_movement.contains("+")) { prompt = CreatePrompt(company_name, true); }
       else { prompt = CreatePrompt(company_name, false); }
 
-      // Get stock movement data and begin completion
-      completion = GetStockMovement(stock_movement);
+      // Begin generating completion using stock movement
+      completion = GetStockMovement(company_name, stock_movement);
 
+      System.out.println(prompt);
+      System.out.println(completion +"\n");
       // Search for company name in scraped_news and pull out relevant sentence if found
       String relevant_news = "";
         // find sentence...
@@ -244,7 +253,7 @@ public class Create_Finetunes {
       }
 
       // If first word, do not add leading " "
-      if (firstWord) {
+      if (!word.equals("") && firstWord) {
         firstWord = false;
       // If it's a subsequent word, add a leading " "
       } else if (!word.equals("")) {
@@ -299,7 +308,6 @@ public class Create_Finetunes {
       prompt = prompt.replace("%", behavior_past_tense[descriptor]);
     }
 
-    System.out.println(prompt+ "\n");
     return prompt;
   }
 
@@ -318,15 +326,64 @@ public class Create_Finetunes {
 
 
   /*____________________________________________________________________________________________________
-    GetStockMovement(String stock_movement)
-     args: stock_movement | String containing line showing stock behavior from SCRAPED_STOCKS
+    GetStockMovement(String company_name, String stock_movement)
+     args:   company_name | String containing name of the company whose stock price changed
+           stock_movement | String containing line showing stock behavior from SCRAPED_STOCKS
      : This method gets the line containing the stock movement data and pulls out the change in percentage
        of the stock price for the day. It returns the change as a sentence formatted to be a completion.
   */
-  private static String GetStockMovement(String stock_movement) {
-    String output = "";
-    // don't forget to add a ' ' to beginning of output
-    return output;
+  private static String GetStockMovement(String company_name, String stock_movement) {
+    // Single Out Percent Change in Stock
+    String percent_change;
+    if ((percent_change = GetPercentChange(stock_movement)) == null) { return ""; }
+
+    // Record Sign of Percent for choosing Descriptors
+    char sign = percent_change.charAt(0);
+    int sign_index;
+    if (sign == '+') { sign_index = 0; }
+    else { sign_index = 1; }
+    percent_change = percent_change.substring(1);        // Remove +/- sign from beginning of percent_change
+    percent_change += "%";
+
+    // List of descriptors of stock behavior
+    String[] descriptor_type1 = {"increased", "decreased"};
+    String[] descriptor_type2 = {"up", "down"};
+    String[] descriptor_type3 = {"jumped up", "fell down"};
+    String[] descriptor_type4 = {"+", "-"};
+
+    // Create Completion from Template
+    //   Key: * (Company Name), % (percentage change), @ (increased, decreased), # (up, down), & (jumped up, fell down), ^ (+, -)
+    Random rnd = new Random();                                      // Random used to randomly generate completion from templates
+    int template = rnd.nextInt(COMPLETION_TEMPLATES.length);
+    String completion = " " +COMPLETION_TEMPLATES[template];
+
+    completion = completion.replace("*", company_name);      // Insert company name
+    completion = completion.replace("%", percent_change);    // Insert percent change
+    completion = completion.replace("@", descriptor_type1[sign_index]);
+    completion = completion.replace("#", descriptor_type2[sign_index]);
+    completion = completion.replace("&", descriptor_type3[sign_index]);
+    completion = completion.replace("^", descriptor_type4[sign_index]);
+
+    return completion;
+  }
+
+  /*
+    GetPercentChange(String stock_movement)
+     args: stock_movement | Raw input string containing stock statistics
+     : This method extracts the percent change from the raw input and returns it.
+  */
+  private static String GetPercentChange(String stock_movement) {
+    // Tokenize stock_movement; final token will always be percent change
+    StringTokenizer st = new StringTokenizer(stock_movement);
+    if (!st.hasMoreTokens()) { return null; }
+
+    String percentChange = "";
+    while (st.hasMoreTokens()) {
+      percentChange = st.nextToken();
+    }
+    percentChange = percentChange.trim();
+
+    return percentChange;
   }
 
 
