@@ -16,14 +16,14 @@ import java.util.Date;
 import java.sql.Timestamp;
 
 public class Create_Finetunes {
-  // Constant Filenames
+  // Constant Filenames (relative to gpt-api directory, probably bad form)
   private static final String SCRAPED_STOCKS = "../data-scraper/scraped_stocks.txt";
   private static final String SCRAPED_NEWS = "../data-scraper/scraped_news.txt";
   private static final String FINE_TUNING_FILE_BASE = "./fine-tuning/fine-tuning-data_";
   private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd'H'HH");
 
   // Constant Word Lists
-  private static final String[] JUNK_WORDS = {"The", "Inc", "Incorporated", "Corp", "Corporation", "Company"};
+  private static final String[] JUNK_WORDS = {"The", "Inc", "Incorporated", "Corp", "Corporation", "Company", "Co", "Holdings"};
   private static final String[] SIGNIFIER_WORDS = {"closed down", "stock", "share", "invest"};
 
   // Constant Prompt Templates
@@ -79,15 +79,14 @@ public class Create_Finetunes {
       news_in.close();
       return null;
     }
-    
+
 
     // Begin Combing through Stocks & News
     System.out.println("Combing through scraped data...");
-    String company_name;
     String prompt, completion, finetune_line;
+    String company_name = GetNextCompanyName(stocks_in);
     while (stocks_in.hasNextLine()) {
-      // Get next company name and generate prompt
-      company_name = GetNextCompanyName(stocks_in);
+      // Generate prompt using company name
       prompt = CreatePrompt(company_name);
 
       // Get stock movement data and begin completion
@@ -106,6 +105,8 @@ public class Create_Finetunes {
       try { ft_out.write(finetune_line); }
       catch (Exception e) { System.out.println("Could not write finetune line -- " +e); }
 
+      // Get next company name (if exists)
+      company_name = GetNextCompanyName(stocks_in);
     }
 
 
@@ -146,16 +147,63 @@ public class Create_Finetunes {
 
   /*____________________________________________________________________________________________________
     GetNextCompanyName(Scanner stocks_in)
-     args: stocks_in | Scanner object currently in scraped_stocks.txt
-     : This method identifies the next company name in scraped_stocks.txt and returns just the name
+     args: stocks_in | Scanner object currently in SCRAPED_STOCKS
+     : This method identifies the next company name in SCRAPED_STOCKS and returns just the name
        of the company, with all junk words removed.
   */
   private static String GetNextCompanyName(Scanner stocks_in) {
+    String current_line, cutoff_line = "";
     String company_name = "";
+
+    // Find Line Containing next Company Name
+    current_line = stocks_in.nextLine();
+    while (!current_line.substring(0, 4).equals("http")) {         // Messy: go through document until you hit a line with a url (urls precede company names)
+      if (!stocks_in.hasNextLine()) { return null; }                                            // If you reach the end of the document, return null
+      
+      current_line = stocks_in.nextLine();
+      if (current_line.equals("")) { current_line = GetNextNonemptyLine(stocks_in); }  // If next line is empty, find next nonempty line
+    }
+    current_line = stocks_in.nextLine();                                                        // current_line will now be the line containing the company name
+
+    // Isolate Company Name from Line
+    for (int i = 0; i < current_line.length(); i++) {
+      // If you reach a ',' cutoff the line
+      if (current_line.charAt(i) == ',') {
+        cutoff_line = current_line.substring(0, i);
+        break;
+      // If you reach a '(' cutoff the line
+      } else if (current_line.charAt(i) == '(') {
+        cutoff_line = current_line.substring(0, i);
+        break;
+      }
+    }
+
+    // Remove Junk Words
+    company_name = CleanJunkWords(cutoff_line);
+
+    System.out.println(current_line);
+    System.out.println(cutoff_line);
+    System.out.println(company_name+ "\n");
 
     return company_name;
   }
 
+  /*
+    GetNextNonemptyLine(Scanner stocks_in)
+     args: stocks_in | Scanner object currently in SCRAPED_STOCKS
+     : This method finds the next line in SCRAPED_STOCKS that is not empty; i.e. not "\n". If it reaches
+       the end of the file, it returns "junkdata". This is to avoid an outofbounds error in GetCompanyName().
+  */
+  private static String GetNextNonemptyLine(Scanner stocks_in) {
+    String current_line = "";
+
+    while (current_line.equals("")) {
+      if (!stocks_in.hasNextLine()) { return "junkdata"; }
+      current_line = stocks_in.nextLine();
+    }
+
+    return current_line;
+  }
 
   /*
     CleanJunkWords(String str)
@@ -163,7 +211,32 @@ public class Create_Finetunes {
      : This method removes any instances of a word from JUNK_WORDS from str and returns the result.
   */
   private static String CleanJunkWords(String str) {
-    String cleaned_str = "";
+    StringTokenizer st = new StringTokenizer(str, " ");               // Split str into tokens based on " " delimiter
+    String word, cleaned_str = "";
+    boolean firstWord = true;
+    
+    // Loop through Tokens -- Add to cleaned_str if not Junk Word
+    while (st.hasMoreTokens()) {
+      word = st.nextToken(); 
+      
+      word = word.trim();
+      for (int i = 0; i < JUNK_WORDS.length; i++) {
+        if (word.equals(JUNK_WORDS[i])) {                                   // If word is a junk word, make empty
+          word = "";
+          break;
+        }
+      }
+
+      // If first word, do not add leading " "
+      if (firstWord) {
+        firstWord = false;
+      // If it's a subsequent word, add a leading " "
+      } else if (!word.equals("")) {
+        word = " " + word;
+      }
+
+      cleaned_str += word;
+    }
 
     return cleaned_str;
   }
@@ -184,7 +257,7 @@ public class Create_Finetunes {
 
   /*____________________________________________________________________________________________________
     GetStockMovement(Scanner stock_in)
-     args stocks_in | Scanner object currently in scraped_stocks.txt
+     args stocks_in | Scanner object currently in SCRAPED_STOCKS
      : This method gets the line containing the stock movement data and pulls out the change in percentage
        of the stock price for the day. It returns the change as a sentence formatted to be a completion.
   */
