@@ -10,10 +10,18 @@ import java.util.Scanner;               // Reading from files
 import java.util.StringTokenizer;       // Breaking up data scraping input
 import java.io.FileWriter;              // Logging output/formatted fine-tuning data
 
-// For getting timestamp for filename:
+// For getting timestamp for fine-tuning filename:
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.sql.Timestamp;
+
+import java.util.Random;                // Random class to randomly choose prompt templates
+
+// For getting timestamp for fine-tuning prompt:
+import java.util.Date;
+import java.time.Month;
+import java.time.LocalDate;
+
 
 public class Create_Finetunes {
   // Constant Filenames (relative to gpt-api directory, probably bad form)
@@ -27,7 +35,14 @@ public class Create_Finetunes {
   private static final String[] SIGNIFIER_WORDS = {"closed down", "stock", "share", "invest"};
 
   // Constant Prompt Templates
-  private static final String[] PROMPT_TEMPLATES = {}; //TODO
+  //   Key: # (Date), * (Company Name), $ (behavior present-tense (go up, go down, etc)), % (behavior past-tense (went up, went down))
+  private static final String[] PROMPT_TEMPLATES = {"Today is #. How did *'s stock price change today? ->",
+                                                    "What happened to the share price of * today? It's #. ->",
+                                                    "I noticed that *'s share price % today, on #. Why is that? ->",
+                                                    "Should I invest in *? Today is #. ->",
+                                                    "What's the story with *'s shares? Today is #. ->",
+                                                    "Why did *'s stock price $ today? It's #. ->",
+                                                    "By how much did *'s stock price $ on #? ->"};
 
   // Go through scraped_stocks.txt --
   //   delimiter between company names is url; they all start with http so go through file line-by-line until you identify that sequence of characters
@@ -83,14 +98,18 @@ public class Create_Finetunes {
 
     // Begin Combing through Stocks & News
     System.out.println("Combing through scraped data...");
+    String stock_movement;
     String prompt, completion, finetune_line;
     String company_name = GetNextCompanyName(stocks_in);
     while (stocks_in.hasNextLine()) {
-      // Generate prompt using company name
-      prompt = CreatePrompt(company_name);
+      stock_movement = stocks_in.nextLine();                                // You have to get the next line before creating the prompt; need to know if stock increases or decreases
+
+      // Generate prompt using company name and flag (true if price increases or stays same, false if decreases)
+      if (stock_movement.contains("+")) { prompt = CreatePrompt(company_name, true); }
+      else { prompt = CreatePrompt(company_name, false); }
 
       // Get stock movement data and begin completion
-      completion = GetStockMovement(stocks_in);
+      completion = GetStockMovement(stock_movement);
 
       // Search for company name in scraped_news and pull out relevant sentence if found
       String relevant_news = "";
@@ -181,10 +200,7 @@ public class Create_Finetunes {
     // Remove Junk Words
     company_name = CleanJunkWords(cutoff_line);
 
-    System.out.println(current_line);
-    System.out.println(cutoff_line);
-    System.out.println(company_name+ "\n");
-
+    // Return Company Name
     return company_name;
   }
 
@@ -248,23 +264,69 @@ public class Create_Finetunes {
      : This methods randomly creates a prompt from a list of templates (PROMPT_TEMPLATES) and returns
        the prompt.
   */
-  private static String CreatePrompt(String company_name) {
-    String prompt = "";
-    // don't forget '->'
+  private static String CreatePrompt(String company_name, boolean increase) {
+    // Random used to randomly generate prompt from templates
+    Random rnd = new Random();
+
+    // List of descriptors of stock behavior, dependent on template
+    final String[] behavior_past_tense = {"went up", "increased", "went down", "decreased"};
+    final String[] behavior_present_tense = {"go up", "increase", "go down", "decrease"};
+
+    // Get Date for Prompt
+    String date = GetDayMonthYear();
+
+    // Build Randomly Generated Prompt from Templates
+    //   Key: # (Date), * (Company Name), $ (behavior present-tense (go up, go down, etc)), % (behavior past-tense (went up, went down))
+    int template = rnd.nextInt(PROMPT_TEMPLATES.length);
+    int descriptor;
+    String prompt = PROMPT_TEMPLATES[template];
+    
+    prompt = prompt.replace("#", date);           // Insert date
+    prompt = prompt.replace("*", company_name);   // Insert company name
+    if (prompt.contains("$")) {                        // If prompt template has present-tense symbol, randomly choose present-tense descriptor
+      if (increase) {
+        descriptor = rnd.nextInt(0, 2);
+      } else {
+        descriptor = rnd.nextInt(2, 4);
+      }
+      prompt = prompt.replace("$", behavior_present_tense[descriptor]);
+    } else if (prompt.contains("%")) {                 // If prompt template has past-tense symbol, randomly choose past-tense descriptor
+      if (increase) {
+        descriptor = rnd.nextInt(0, 2);
+      } else {
+        descriptor = rnd.nextInt(2, 4);
+      }
+      prompt = prompt.replace("%", behavior_past_tense[descriptor]);
+    }
+
+    System.out.println(prompt+ "\n");
     return prompt;
+  }
+
+  private static String GetDayMonthYear() {
+    String date = "";
+    LocalDate currentDate = LocalDate.now();
+
+    date += currentDate.getMonth().toString();
+    date = date.toLowerCase();
+    date = ((char) (date.charAt(0) - 32))+ "" +date.substring(1);                    // Capitalize first letter of month
+    date += " " +currentDate.getDayOfMonth();
+    date += ", " +currentDate.getYear();
+
+    return date;
   }
 
 
   /*____________________________________________________________________________________________________
-    GetStockMovement(Scanner stock_in)
-     args stocks_in | Scanner object currently in SCRAPED_STOCKS
+    GetStockMovement(String stock_movement)
+     args: stock_movement | String containing line showing stock behavior from SCRAPED_STOCKS
      : This method gets the line containing the stock movement data and pulls out the change in percentage
        of the stock price for the day. It returns the change as a sentence formatted to be a completion.
   */
-  private static String GetStockMovement(Scanner stocks_in) {
-    String stock_movement = "";
+  private static String GetStockMovement(String stock_movement) {
+    String output = "";
     // don't forget to add a ' ' to beginning of output
-    return stock_movement;
+    return output;
   }
 
 
