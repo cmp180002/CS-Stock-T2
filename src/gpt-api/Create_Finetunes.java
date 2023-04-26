@@ -18,8 +18,6 @@ import java.sql.Timestamp;
 import java.util.Random;                // Random class to randomly choose prompt templates
 
 // For getting timestamp for fine-tuning prompt:
-import java.util.Date;
-import java.time.Month;
 import java.time.LocalDate;
 
 
@@ -32,7 +30,7 @@ public class Create_Finetunes {
 
   // Constant Word Lists
   private static final String[] JUNK_WORDS = {"The", "Inc", "Incorporated", "Corp", "Corporation", "Company", "Co", "Holdings"};
-  private static final String[] SIGNIFIER_WORDS = {"closed down", "stock", "share", "invest"};
+  private static final String[] SIGNIFIER_WORDS = {"earning", "investor", "analyst", "estimate", "sector", "stock", "shares", "investment", "revenue", "-quarter"};
 
   // Constant Prompt Templates
   //   Key: # (Date), * (Company Name), $ (behavior present-tense (go up, go down, etc)), % (behavior past-tense (went up, went down))
@@ -73,16 +71,12 @@ public class Create_Finetunes {
        containing the produced prompt/completion pairs.
   */
   public static String ProduceFinetuningData() {
-    // Open Scraped Stocks & Scraped News
-    File stocks, news;
-    Scanner stocks_in, news_in;
+    // Open Scraped Stocks
+    File stocks;
+    Scanner stocks_in;
     try {
       stocks = new File(SCRAPED_STOCKS);
       stocks_in = new Scanner(stocks);
-
-      news = new File(SCRAPED_NEWS);
-      news_in = new Scanner(news);
-      
     } catch(Exception e) {
       System.out.println(e);
       return null;
@@ -98,7 +92,6 @@ public class Create_Finetunes {
     } catch (Exception e) {
       System.out.println(e);
       stocks_in.close();
-      news_in.close();
       return null;
     }
 
@@ -106,7 +99,7 @@ public class Create_Finetunes {
     // Begin Combing through Stocks & News
     System.out.println("Combing through scraped data...");
     String prompt, completion, finetune_line;
-    String company_name = GetNextCompanyName(stocks_in);
+    String company_name = GetNextCompanyName(stocks_in, "");
     String stock_movement;
     while (stocks_in.hasNextLine()) {
       stock_movement = stocks_in.nextLine();                                // You have to get the next line before creating the prompt; need to know if stock increases or decreases
@@ -118,29 +111,29 @@ public class Create_Finetunes {
       // Begin generating completion using stock movement
       completion = GetStockMovement(company_name, stock_movement);
 
-      System.out.println(prompt);
-      System.out.println(completion +"\n");
       // Search for company name in scraped_news and pull out relevant sentence if found
       String relevant_news = "";
-        // find sentence...
+      relevant_news = GetRelevantNews(company_name);
 
       completion += relevant_news;
 
+      System.out.println(prompt);
+      System.out.println(completion+ "\n");
       // Do final formatting on completion?
 
       // Get formatted line for fine-tuning file using prompt and completion, and then write to file
       finetune_line = GetJSONLLine(prompt, completion);
       try { ft_out.write(finetune_line); }
-      catch (Exception e) { System.out.println("Could not write finetune line -- " +e); }
+      catch (Exception e) { System.out.println("  Could not write finetune line -- " +e); }
 
       // Get next company name (if exists)
-      company_name = GetNextCompanyName(stocks_in);
+      String previous_company_name = company_name;
+      company_name = GetNextCompanyName(stocks_in, previous_company_name);
     }
 
 
     // Cleanup
     stocks_in.close();
-    news_in.close();
     try { ft_out.close(); }
     catch (Exception e) {
       System.out.println(e);
@@ -174,12 +167,13 @@ public class Create_Finetunes {
 
 
   /*____________________________________________________________________________________________________
-    GetNextCompanyName(Scanner stocks_in)
-     args: stocks_in | Scanner object currently in SCRAPED_STOCKS
+    GetNextCompanyName(Scanner stocks_in, String previous_company_name)
+     args:             stocks_in | Scanner object currently in SCRAPED_STOCKS
+           previous_company_name | Previous company name to check for duplicates
      : This method identifies the next company name in SCRAPED_STOCKS and returns just the name
        of the company, with all junk words removed.
   */
-  private static String GetNextCompanyName(Scanner stocks_in) {
+  private static String GetNextCompanyName(Scanner stocks_in, String previous_company_name) {
     String current_line, cutoff_line = "";
     String company_name = "";
 
@@ -208,6 +202,8 @@ public class Create_Finetunes {
 
     // Remove Junk Words
     company_name = CleanJunkWords(cutoff_line);
+    // Sometimes in the data the same company is repeated twice; band-aid solution to skip over it
+    if (company_name.equals(previous_company_name)) { company_name = GetNextCompanyName(stocks_in, ""); }
 
     // Return Company Name
     return company_name;
@@ -387,8 +383,97 @@ public class Create_Finetunes {
   }
 
 
-  private static boolean IdentifySignifierWords(String str) {
-    return false;
+  /*____________________________________________________________________________________________________
+    GetRelevantNews(String company_name)
+     args: company_name | Name of the company for which you are trying to find news
+     : This method goes through the SCRAPED_NEWS file and searches for news pertaining to the company
+       given as an argument. It returns a line from SCRAPED_NEWS considered valid if it finds one, or
+       returns the empty string if nothing could be found.
+  */
+  private static String GetRelevantNews(String company_name) {
+    // Open SCRAPED_NEWS File
+    File news;
+    Scanner news_in;
+    try {
+      news = new File(SCRAPED_NEWS);
+      news_in = new Scanner(news);
+    } catch (Exception e) {
+      System.out.println(e);
+      return "";
+    }
+    
+    if (!news_in.hasNextLine()) { 
+      news_in.close();
+      return "";
+    }
+
+
+    // Find Relevant News based on SIGNIFIER_WORDS in SCRAPED_NEWS
+    String relevant_news = "";
+    String current_line = news_in.nextLine();
+    // Loop through entire file, one line at a time, until you find a valid piece of news (or not)
+    while (news_in.hasNextLine()) {
+      // Small speedup? Ignore URLs
+      if (current_line.substring(0,4).equals("http")) { }
+      // If current line contains the company name and has a SIGNIFIER_WORD, treat it as valid news and end the loop
+      else if (current_line.contains(company_name) &&
+          IdentifySignifierWords(current_line)) {
+            relevant_news = " " +current_line;
+            break;
+      }
+
+      current_line = news_in.nextLine();
+      if (current_line.equals("")) { current_line = GetNextNonemptyLine(news_in); }  // If next line is empty, find next nonempty line
+      if (current_line.length() < 4) { current_line = "junkdata"; }                           // If current line is smaller than 4 characters, treat as junk data
+    }
+
+
+    // Cleanup
+    try { news_in.close(); } 
+    catch (Exception e) {
+      System.out.println(e);
+      return relevant_news;
+    }
+
+    // Return Relevant News
+    return relevant_news;
+  }
+
+  /*
+    IdentifySignifierWords(String current_line)
+     args: current_line | String where you are looking for signifiers
+     : This method looks for a SIGNIFIER_WORD in current_line. If it finds one, it returns true. Otherwise, it returns
+       false.
+
+       note: possible alternate implementation for consideration. Find every line containing a signifier word in the file,
+             and record # of signifier words in each. The line with the highest word count is used.
+  */
+  private static boolean IdentifySignifierWords(String current_line) {
+    // Tokenize Input String
+    StringTokenizer st = new StringTokenizer(current_line);
+    if (!st.hasMoreTokens()) { return false; }
+
+    // Check for Signifier Words
+    boolean is_signifier = false;
+    String word;
+    while(st.hasMoreTokens()) {
+      word = st.nextToken();
+      word = word.trim();
+
+      // Check word against each SIGNIFIER_WORDS
+      for (int i = 0; i < SIGNIFIER_WORDS.length; i++) {
+        if (word.equals(SIGNIFIER_WORDS[i])) {
+          is_signifier = true;
+          break;
+        }
+      }
+
+      // If you've found a signifier word, end the loop
+      if (is_signifier) { break; }
+    }
+
+    // Return Result
+    return is_signifier;
   }
 
 
