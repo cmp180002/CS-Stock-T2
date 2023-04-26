@@ -49,19 +49,6 @@ public class Create_Finetunes {
                                                         "By the end of the day, *'s stock price was # by %.",   // up, down 
                                                         "* saw a change of ^% in terms of stock price today."}; // +, -      
 
-  // Go through scraped_stocks.txt --
-  //   delimiter between company names is url; they all start with http so go through file line-by-line until you identify that sequence of characters
-  //   read next line and tokenize
-  //     go through tokens; the delimiter for the company name is the '(' used for the stock ticker name
-  //     once you isolate the full company name, eliminate any 'junk' words
-
-  //   search through scraped_news.txt for the first instance of the company name
-  //   take the whole paragraph encompassing the company name and tokenize
-  //     search for any instance of a 'signifier' word
-  //     if you find one, return that paragraph as the part of the completion for the current company
-  //     if not, go to next instance of company name and repeat
-  //   if you get to end of document with no success, return empty string
-
   /*
     ProduceFinetuningData
      args:
@@ -99,6 +86,7 @@ public class Create_Finetunes {
     // Begin Combing through Stocks & News
     System.out.println("Combing through scraped data...");
     String prompt, completion, finetune_line;
+    String previous_company_name;
     String company_name = GetNextCompanyName(stocks_in, "");
     String stock_movement;
     while (stocks_in.hasNextLine()) {
@@ -114,20 +102,15 @@ public class Create_Finetunes {
       // Search for company name in scraped_news and pull out relevant sentence if found
       String relevant_news = "";
       relevant_news = GetRelevantNews(company_name);
-
       completion += relevant_news;
 
-      System.out.println(prompt);
-      System.out.println(completion+ "\n");
-      // Do final formatting on completion?
-
       // Get formatted line for fine-tuning file using prompt and completion, and then write to file
-      finetune_line = GetJSONLLine(prompt, completion);
+      finetune_line = GetJSONLLine(prompt, completion)+ "\n";
       try { ft_out.write(finetune_line); }
       catch (Exception e) { System.out.println("  Could not write finetune line -- " +e); }
 
       // Get next company name (if exists)
-      String previous_company_name = company_name;
+      previous_company_name = company_name;
       company_name = GetNextCompanyName(stocks_in, previous_company_name);
     }
 
@@ -287,7 +270,6 @@ public class Create_Finetunes {
     String prompt = PROMPT_TEMPLATES[template];
     
     prompt = prompt.replace("#", date);           // Insert date
-    prompt = prompt.replace("*", company_name);   // Insert company name
     if (prompt.contains("$")) {                        // If prompt template has present-tense symbol, randomly choose present-tense descriptor
       if (increase) {
         descriptor = rnd.nextInt(0, 2);
@@ -303,6 +285,7 @@ public class Create_Finetunes {
       }
       prompt = prompt.replace("%", behavior_past_tense[descriptor]);
     }
+    prompt = prompt.replace("*", company_name);   // Insert company name
 
     return prompt;
   }
@@ -477,9 +460,55 @@ public class Create_Finetunes {
   }
 
 
+  /*____________________________________________________________________________________________________
+    GetJSONLine(String prompt, String completion)
+     args:     prompt | Generated prompt
+           completion | Generated completion
+     : This method produces a formatted JSONL line and returns it.
+  */
   private static String GetJSONLLine(String prompt, String completion) {
-    String finetune_line = "";
+    if (prompt.equals("") || prompt == null) { return ""; }
+    if (completion.equals("") || completion == null) { return ""; }
 
+    // Fix completion formatting (replace " with \")
+    completion = FormatCompletion(completion);
+
+    // Create JSONL-formatted Fine-Tune
+    // {"prompt":"+prompt+","completion":"+completion+\n"}
+    String finetune_line;
+    finetune_line = "{\"prompt\": ";
+    finetune_line += "\"" +prompt+ "\", ";
+    finetune_line += "\"completion\": ";
+    finetune_line += "\"" +completion+ "\\n\"}";
+
+    System.out.println(finetune_line);
     return finetune_line;
   }
+
+  private static String FormatCompletion(String completion) {
+    String formatted_completion = completion;
+
+    for (int i = 0; i < formatted_completion.length(); i++) {
+      if (formatted_completion.charAt(i) == '\"') {
+        formatted_completion = formatted_completion.substring(0,i) +"\\\""+ formatted_completion.substring(i+1);
+        i++;
+      }
+    }
+
+    return formatted_completion;
+  }
 }
+
+
+  // Go through scraped_stocks.txt --
+  //   delimiter between company names is url; they all start with http so go through file line-by-line until you identify that sequence of characters
+  //   read next line and tokenize
+  //     go through tokens; the delimiter for the company name is the '(' used for the stock ticker name
+  //     once you isolate the full company name, eliminate any 'junk' words
+
+  //   search through scraped_news.txt for the first instance of the company name
+  //   take the whole paragraph encompassing the company name and tokenize
+  //     search for any instance of a 'signifier' word
+  //     if you find one, return that paragraph as the part of the completion for the current company
+  //     if not, go to next instance of company name and repeat
+  //   if you get to end of document with no success, return empty string
