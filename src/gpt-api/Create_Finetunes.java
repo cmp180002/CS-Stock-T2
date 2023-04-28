@@ -488,7 +488,6 @@ public class Create_Finetunes {
     finetune_line += "\"completion\": ";
     finetune_line += "\"" +completion+ "\\n\"}";
 
-    System.out.println(finetune_line);
     return finetune_line;
   }
 
