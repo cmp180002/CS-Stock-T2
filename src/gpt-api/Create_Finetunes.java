@@ -410,6 +410,13 @@ public class Create_Finetunes {
       if (current_line.length() < 4) { current_line = "junkdata"; }                           // If current line is smaller than 4 characters, treat as junk data
     }
 
+    // Loop through Relevant News -- Remove Junk Characters
+    for (int i = 0; i < relevant_news.length(); i++) {
+      if (((int) relevant_news.charAt(i)) < 32) {
+        relevant_news = relevant_news.substring(0, i) + relevant_news.substring(i+1);
+        i--;
+      }
+    }
 
     // Cleanup
     try { news_in.close(); } 
