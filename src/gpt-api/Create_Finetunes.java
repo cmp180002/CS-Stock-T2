@@ -122,6 +122,8 @@ public class Create_Finetunes {
       System.out.println(e);
     }
 
+    System.out.println("Done!");
+
     // Return Filename of Fine-Tuning Data
     return finetuning;
   }
