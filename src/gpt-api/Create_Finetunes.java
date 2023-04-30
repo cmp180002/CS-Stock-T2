@@ -29,8 +29,8 @@ public class Create_Finetunes {
   private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd'H'HH");
 
   // Constant Word Lists
-  private static final String[] JUNK_WORDS = {"The", "Inc", "Incorporated", "Corp", "Corporation", "Company", "Co", "Holdings"};
-  private static final String[] SIGNIFIER_WORDS = {"earning", "investor", "analyst", "estimate", "sector", "stock", "shares", "investment", "revenue", "-quarter"};
+  private static final String[] JUNK_WORDS = {"The", "Inc", "Incorporated", "Corp", "Corporation", "Company", "Co"};
+  private static final String[] SIGNIFIER_WORDS = {"earning", "investor", "analyst", "estimate", "sector", "stock", "share", "investment", "revenue", "-quarter", "asset", "capital", "property", "bond", "profit", "loss", "turnout", "return", "gain", "holding"};
 
   // Constant Prompt Templates
   //   Key: # (Date), * (Company Name), $ (behavior present-tense (go up, go down, etc)), % (behavior past-tense (went up, went down))
