@@ -53,6 +53,16 @@ export class ChatboxComponent implements OnInit {
   checkValid(str: string): boolean{
     if(str == "")
       return false;
+    
+    var isNotUnique = false;
+    for(var i = 0; i < this.messages.length; i++){
+      if(this.messages[i].content == str){
+        isNotUnique = true;
+      }
+    }
+    if(isNotUnique){
+      return false;
+    }
 
     var isValid = true;
     this.invalidStrings.forEach((invalidString) => {
