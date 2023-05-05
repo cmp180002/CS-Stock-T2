@@ -4,6 +4,8 @@
 
       This program takes the fine-tuning data produced by Create-Finetunes and actually trains the model
       with it.
+
+      This was never completed; you have to manually train the model from the command line using API commands.
 */
 
 // For Handling Openai API Commands
