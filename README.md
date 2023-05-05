@@ -1,13 +1,13 @@
 # CS-Stock-T2 Stock Market Chatbot
 Our project has three components:
 
-=== Data Scraper
+=== Data Scraper ===
 See the data-scraper folder for a README on how to use the component.
 
-=== Fine-tuning Component
+=== Fine-tuning Component ===
 See the gpt-api folder for a README on how to use the component.
 
-=== Webpage Interface
+=== Webpage Interface ===
 Make sure you have the Angular 2+ JavaScript framework installed. Then, travel to the web-interface directory.
 
 1. To run the site locally on your machine, run the command "ng serve".
