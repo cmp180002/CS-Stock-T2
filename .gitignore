@@ -3,3 +3,4 @@ scraped_news.txt
 scraped_stocks.txt
 urls_news.txt
 urls_stocks.txt
+*.class
