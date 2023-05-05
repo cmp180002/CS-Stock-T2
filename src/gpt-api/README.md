@@ -1,5 +1,5 @@
 # GPT-API Fine-tuning Component
-== Description
+Description | 
 This component takes the data produced by the web scraper and extracts the stock market data and relevant news. It
 uses the data is pulls from the scraper to create a JSONL formatted, timestamped fine-tune file in the fine-tuning
 directory. Filenames take the form: fine-tuning-data_<timestamp>.jsonl
@@ -10,7 +10,7 @@ for fine-tuning with the OpenAI API:
 
 
 
-Compilation
+Compilation | 
 To compile, ensure you have Java 17+ installed.
 You can either run the makefile in this directory:
 			make
@@ -23,7 +23,7 @@ This will produce many class files, but the one you want to run the component wi
 
 
 
-Execution
+Execution | 
 **Ensure you have run the data scraping component before this, or the fine-tuning generation won't work!
 
 To run the component, you can either run the script in this directory:
