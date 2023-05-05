@@ -13,8 +13,10 @@ public class Main {
     String finetuning_file = Create_Finetunes.ProduceFinetuningData();
 
     // Train the Model with the Fine-tunes
+    /*
     if (!Train_Model.TrainModel(finetuning_file)) {
       System.out.println("Finetune Failed.");
     }    
+    */
   }
 }
