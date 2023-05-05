@@ -25,7 +25,7 @@ export class BotResponseService {
 
   async getResponse(input: string): Promise<string>{
     const completion = await this.openai.createCompletion({
-      model: "davinci:ft-csstockt2utd-2023-05-05-19-17-58",
+      model: "davinci:ft-csstockt2utd:cs-stock-t2-model3-2023-04-25-04-53-25",
       prompt: input,
       max_tokens: 150,
       top_p: .4,
